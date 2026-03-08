@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="テトリス">
+  <title>テトリス</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>テトリス</h1>
+    </header>
+
+    <div id="game-wrapper">
+      <!-- サイドパネル（左） -->
+      <div class="side-panel" id="panel-left">
+        <div class="info-box">
+          <div class="info-label">スコア</div>
+          <div class="info-value" id="score">0</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">ライン</div>
+          <div class="info-value" id="lines">0</div>
+        </div>
+        <div class="info-box">
+          <div class="info-label">レベル</div>
+          <div class="info-value" id="level">1</div>
+        </div>
+      </div>
+
+      <!-- メインフィールド -->
+      <div id="field-container">
+        <canvas id="game-canvas"></canvas>
+        <div id="overlay" class="hidden">
+          <div id="overlay-content">
+            <div id="overlay-title"></div>
+            <div id="overlay-score"></div>
+            <button id="overlay-btn"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- サイドパネル（右） -->
+      <div class="side-panel" id="panel-right">
+        <div class="info-box">
+          <div class="info-label">NEXT</div>
+          <canvas id="next-canvas"></canvas>
+        </div>
+        <div class="info-box">
+          <div class="info-label">HOLD</div>
+          <canvas id="hold-canvas"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- モバイル操作ボタン -->
+    <div id="mobile-controls">
+      <div class="ctrl-row">
+        <button class="ctrl-btn" id="btn-rotate" aria-label="回転">↻</button>
+        <button class="ctrl-btn" id="btn-hold" aria-label="ホールド">□</button>
+      </div>
+      <div class="ctrl-row">
+        <button class="ctrl-btn" id="btn-left" aria-label="左">◀</button>
+        <button class="ctrl-btn" id="btn-down" aria-label="下">▼</button>
+        <button class="ctrl-btn" id="btn-right" aria-label="右">▶</button>
+      </div>
+      <div class="ctrl-row">
+        <button class="ctrl-btn ctrl-wide" id="btn-drop" aria-label="ハードドロップ">⬇ DROP</button>
+      </div>
+    </div>
+
+    <div id="keyboard-hint">
+      <span>← → 移動</span>
+      <span>↑ / Z 回転</span>
+      <span>↓ ソフトドロップ</span>
+      <span>Space ハードドロップ</span>
+      <span>C ホールド</span>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+</body>
+</html>
